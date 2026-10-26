@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Airfare Reservation System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <a class="logo" href="#">✈ Airfare <span>Reservation</span></a>
+        <nav><button data-page="search" class="active">Flights</button><button data-page="bookings">My
+                Bookings</button><button data-page="account">Account</button><button data-page="admin">Admin</button>
+        </nav><small id="accountStatus">● Demo booking · Ready to fly</small>
+    </header>
+    <main>
+        <section id="searchPage">
+            <section class="hero">
+                <div><small class="eyebrow">✦ YOUR NEXT JOURNEY STARTS HERE</small>
+                    <h1>Find your flight.<br><em>Feel the freedom.</em></h1>
+                    <p>Explore destinations, choose your seat, and keep your trip details in one place.</p>
+                    <div class="stats"><span><b>12+</b> Sample flights</span><span><b>6</b>
+                            Destinations</span><span><b>24/7</b> Booking access</span></div>
+                </div>
+                <div class="sky">
+                    <div class="sun"></div>
+                    <div class="plane">✈</div>
+                    <div class="orbit"></div>
+                    <p>The world is waiting ✦</p>
+                </div>
+            </section>
+            <section class="searchbox"><small class="eyebrow">PLAN YOUR TRIP</small>
+                <h2>Where would you like to go?</h2>
+                <form id="searchForm" class="searchgrid"><label>FROM<select id="from"></select></label><button
+                        type="button" id="swap" class="swap">⇄</button><label>TO<select
+                            id="to"></select></label><label>DEPARTURE<input id="date" type="date"
+                            required></label><label>PASSENGERS<select id="pax">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                        </select></label><button class="primary">Search flights →</button></form>
+                <p class="note">Demo project with sample flight data. No real airline/payment connection.</p>
+            </section>
+            <section id="results" class="hidden">
+                <div class="resulthead">
+                    <div><small class="eyebrow">AVAILABLE OPTIONS</small>
+                        <h2 id="resulttitle">Available flights</h2>
+                        <p id="resultsub"></p>
+                    </div><label class="sort">Sort by <select id="sort">
+                            <option value="recommended">Recommended</option>
+                            <option value="price">Lowest price</option>
+                            <option value="duration">Shortest duration</option>
+                            <option value="time">Departure time</option>
+                        </select></label>
+                </div>
+                <div id="flights" class="flights"></div>
+                <div id="none" class="empty hidden">
+                    <h3>No flights found</h3>
+                    <p>Try a different route.</p>
+                </div>
+            </section>
+        </section>
+        <section id="bookingsPage" class="hidden">
+            <div class="pagehead"><small class="eyebrow">YOUR TRAVEL SPACE</small>
+                <h1>My <em>Bookings</em></h1>
+                <p>Look up your trips or cancel a reservation.</p>
+            </div>
+            <div class="lookup"><b>Search using your booking reference</b>
+                <div><input id="lookup" placeholder="e.g. AV-4F92C1"><button id="lookupBtn" class="primary">Find booking
+                        →</button></div>
+                <p class="note">Bookings are saved in this browser.</p>
+            </div>
+            <div id="lookupResult"></div>
+            <div class="resulthead">
+                <h2>All bookings</h2><span id="count" class="pill">0 bookings</span>
+            </div>
+            <div id="bookingList" class="bookinglist"></div>
+            <div id="noBookings" class="empty">
+                <h3>No bookings yet</h3>
+                <p>Once you reserve a flight, your booking appears here.</p><button data-page="search"
+                    class="textbtn">Search flights →</button>
+            </div>
+        </section>
+        <section id="accountPage" class="hidden">
+            <div class="pagehead"><small class="eyebrow">YOUR AIRFARE RESERVATION ACCOUNT</small>
+                <h1>Welcome <em>aboard.</em></h1>
+                <p>Create an account or sign in to make a reservation and keep your trips organized.</p>
+            </div>
+            <div id="signedInPanel" class="lookup hidden">
+                <h2 id="signedInTitle">You're signed in</h2>
+                <p id="signedInText" class="muted"></p><button id="logoutBtn" class="danger">Sign out</button>
+            </div>
+            <div id="authForms" class="authgrid">
+                <form id="registerForm" class="authcard"><small class="eyebrow">NEW TO AIRFARE RESERVATION?</small>
+                    <h2>Create account</h2><label>FULL NAME<input id="regName" required minlength="2"
+                            placeholder="Your full name"></label><label>EMAIL ADDRESS<input id="regEmail" type="email"
+                            required placeholder="you@example.com"></label><label>PASSWORD<input id="regPassword"
+                            type="password" required minlength="4" placeholder="At least 4 characters"></label>
+                            
+<button type="submit" class="primary full">Send OTP →</button>
+
+<div id="otpSection" class="hidden">
+    <label>EMAIL OTP
+        <input
+            id="registrationOTP"
+            type="text"
+            inputmode="numeric"
+            pattern="[0-9]{6}"
+            maxlength="6"
+            placeholder="Enter 6-digit OTP"
+            disabled
+        >
+    </label>
+
+    <button type="button" id="verifyOTPBtn" class="primary full">
+        Verify OTP & Create Account →
+    </button>
+
+    <p class="note">OTP expires in 5 minutes. Check your email inbox.</p>
+</div>
+
+<p class="note">Verify your email to complete registration.</p>
+
+                </form>
+                <form id="loginForm" class="authcard"><small class="eyebrow">ALREADY A MEMBER?</small>
+                    <h2>Sign in</h2><label>EMAIL ADDRESS<input id="loginEmail" type="email" required
+                            placeholder="you@example.com"></label><label>PASSWORD<input id="loginPassword"
+                            type="password" required placeholder="Your password"></label><button
+                        class="primary full">Sign in →</button>
+                    <p class="note">This is a local front-end demo, not a secure production login.</p>
+                </form>
+            </div>
+        </section>
+        <section id="adminPage" class="hidden">
+            <div class="pagehead"><small class="eyebrow">OPERATIONS OVERVIEW</small>
+                <h1>Admin <em>dashboard</em></h1>
+                <p>Sample statistics calculated from bookings saved in this browser.</p>
+            </div>
+            <div class="adminstats">
+                <article class="metric"><span>Total bookings</span><strong id="adminBookings">0</strong><small>Includes
+                        cancelled reservations</small></article>
+                <article class="metric"><span>Estimated revenue</span><strong
+                        id="adminRevenue">₹0</strong><small>Confirmed bookings only</small></article>
+                <article class="metric"><span>Confirmed passengers</span><strong
+                        id="adminPassengers">0</strong><small>Across all sample flights</small></article>
+                <article class="metric"><span>Available seats</span><strong id="adminSeats">0</strong><small>Across all
+                        sample flights</small></article>
+            </div>
+            <div class="resulthead">
+                <h2>Recent reservations</h2><span class="pill">Demo data</span>
+            </div>
+            <div id="adminBookingList" class="bookinglist"></div>
+            <p class="note">Admin view is not password-protected. Metrics are illustrative and should not be treated as
+                real airline revenue or inventory.</p>
+        </section>
+    </main>
+    <footer><a class="logo" href="#">✈ Airfare <span>Reservation</span></a>
+        <p>Made for journeys worth remembering.</p><small>© 2026 Airfare Reservation System · Student project
+            demo</small>
+    </footer>
+    <div id="bookingModal" class="modal hidden">
+        <div class="shade" data-close="bookingModal"></div>
+        <div class="modalcard"><button class="close" data-close="bookingModal">×</button><small class="eyebrow">COMPLETE
+                YOUR RESERVATION</small>
+            <h2>Choose your seat</h2>
+            <p id="flightSummary" class="muted"></p>
+            <div class="legend"><span>🟦 Available</span><span>🔵 Selected</span><span>⬜ Booked</span></div>
+            <div class="seatarea">
+                <div class="cockpit">✈ FRONT OF AIRCRAFT</div>
+                <div id="seatmap" class="seatmap"></div>
+            </div>
+            <p id="seatmsg" class="seatmsg"></p>
+            <form id="bookingForm">
+                <div class="formgrid"><label>FULL NAME<input id="name" required minlength="2"
+                            placeholder="Enter full name"></label><label>EMAIL ADDRESS<input id="email" type="email"
+                            required placeholder="you@example.com"></label><label>PHONE NUMBER<input id="phone"
+                            type="tel" pattern="[0-9+() -]{8,18}" required
+                            placeholder="Phone number"></label><label>PASSENGERS<input id="bookpax" readonly></label>
+                </div>
+                <div class="pricebox">
+                    <p>Price per passenger <b id="each"></b></p>
+                    <p>Passengers <b id="paxcount"></b></p>
+                    <p class="total">Total amount <b id="total"></b></p>
+                </div><button class="primary full">Confirm booking →</button>
+                <p class="note center">No payment is collected in this demo.</p>
+            </form>
+        </div>
+    </div>
+    <div id="confirmModal" class="modal hidden">
+        <div class="shade" data-close="confirmModal"></div>
+        <div class="modalcard confirm"><button class="close" data-close="confirmModal">×</button>
+            <div class="success">✓</div><small class="eyebrow">BOOKING CONFIRMED</small>
+            <h2>You're ready to fly!</h2>
+            <p class="muted">Your reservation has been saved on this device.</p>
+            <div id="ticket"></div><button id="downloadConfirmTicket" class="secondary full">Download ticket
+                ↓</button><button id="viewBookings" class="primary full">View my bookings →</button>
+        </div>
+    </div>
+    <div id="toast" class="toast"></div>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
